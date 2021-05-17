@@ -2,14 +2,15 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIntValidator
 import sys
 
-class Ui_mainWindow(object):
+class Ui_MainWindow(object):
     def __init__(self):
         self.mainWindow = QtWidgets.QMainWindow()
         self.mainWindow.show()
+        self.counter=0
+        self.numberOfParticipants=0
 
     def setupUi(self):
         self.step1()
-        # self.step2()
 
     def step1(self):
         self.mainWindow.setObjectName("mainWindow")
@@ -43,6 +44,7 @@ class Ui_mainWindow(object):
         font.setPointSize(10)
         self.confirmButton.setFont(font)
         self.confirmButton.setObjectName("confirmButton")
+        self.confirmButton.clicked.connect(lambda: self.step1ConfirmAction(self.numberCombo))
 
         self.mainWindow.setCentralWidget(self.centralwidget)
 
@@ -53,7 +55,11 @@ class Ui_mainWindow(object):
         self.mainLabel.setText(_translate("mainWindow", "Please enter the number of players in the tournament:"))
         self.confirmButton.setText(_translate("mainWindow", "CONFIRM"))
 
-    def step2(self):
+    def step1ConfirmAction(self, comboBox):
+        self.step2(int(comboBox.currentText()))
+
+    def step2(self, participants):
+        self.numberOfParticipants=participants
         self.mainWindow.setObjectName("mainWindow")
         self.mainWindow.resize(640, 451)
         self.mainWindow.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
@@ -113,6 +119,7 @@ class Ui_mainWindow(object):
         self.confirmButton = QtWidgets.QPushButton(self.centralwidget)
         self.confirmButton.setGeometry(QtCore.QRect(260, 350, 141, 41))
         self.confirmButton.setObjectName("confirmButton")
+        self.confirmButton.clicked.connect(self.step2ConfirmAction)
 
         self.mainWindow.setCentralWidget(self.centralwidget)
 
@@ -127,9 +134,16 @@ class Ui_mainWindow(object):
         self.streamLabel.setText(_translate("MainWindow", "ENTER STREAM"))
         self.yearLabel.setText(_translate("MainWindow", "ENTER YEAR"))
 
+    def step2ConfirmAction(self):
+        self.counter+=1
+        # print(self.counter, self.numberOfParticipants)
+        if(self.counter==self.numberOfParticipants):
+            sys.exit()
+        else:
+            self.step2(self.numberOfParticipants)
 
 if __name__=='__main__':
     app = QtWidgets.QApplication(sys.argv)
-    ui=Ui_mainWindow()
+    ui=Ui_MainWindow()
     ui.setupUi()
     app.exec_()
