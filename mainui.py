@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIntValidator
+import dboperations
 import sys
 
 class Ui_MainWindow(object):
@@ -8,6 +9,7 @@ class Ui_MainWindow(object):
         self.mainWindow.show()
         self.counter=0
         self.numberOfParticipants=0
+        self.db=dboperations.dboperations()
 
     def setupUi(self):
         self.step1()
@@ -119,6 +121,7 @@ class Ui_MainWindow(object):
         self.confirmButton = QtWidgets.QPushButton(self.centralwidget)
         self.confirmButton.setGeometry(QtCore.QRect(260, 350, 141, 41))
         self.confirmButton.setObjectName("confirmButton")
+        self.confirmButton.clicked.connect(lambda: self.getInputFields(self.nameInput.text(), self.rollInput.text(), self.streamCombo.currentText(), self.yearCombo.currentText()))
         self.confirmButton.clicked.connect(self.step2ConfirmAction)
 
         self.mainWindow.setCentralWidget(self.centralwidget)
@@ -133,6 +136,10 @@ class Ui_MainWindow(object):
         self.confirmButton.setText(_translate("MainWindow", "CONFIRM"))
         self.streamLabel.setText(_translate("MainWindow", "ENTER STREAM"))
         self.yearLabel.setText(_translate("MainWindow", "ENTER YEAR"))
+
+    def getInputFields(self, name, roll, stream, year):
+        self.db.enterData(name, roll, stream, year)
+        # print(name, roll, stream, year)
 
     def step2ConfirmAction(self):
         self.counter+=1
