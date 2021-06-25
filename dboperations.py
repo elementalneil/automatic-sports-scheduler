@@ -3,7 +3,7 @@ import random
 
 class dboperations:
     def __init__(self):
-        conn=sqlite3.connect('finances.sqlite')
+        conn=sqlite3.connect('Participants.sqlite')
         self.sql=conn.cursor()
         initscript='''
             CREATE TABLE IF NOT EXISTS Participants(
