@@ -145,6 +145,7 @@ class Ui_MainWindow(object):
         self.counter+=1
         # print(self.counter, self.numberOfParticipants)
         if(self.counter==self.numberOfParticipants):
+            self.db.createFixtures()
             sys.exit()
         else:
             self.step2(self.numberOfParticipants)
