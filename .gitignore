@@ -2,3 +2,4 @@ __pycache__/
 Temp/
 finances.sqlite 
 Fixtures.txt
+Documentation/
