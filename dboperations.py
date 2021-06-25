@@ -6,11 +6,11 @@ class dboperations:
         self.sql=conn.cursor()
         initscript='''
             CREATE TABLE IF NOT EXISTS Participants(
+                Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
                 name VARCHAR2(50) NOT NULL,
                 roll NUMBER(2) NOT NULL,
                 stream VARCHAR2(50) NOT NULL,
-                year NUMBER(50) NOT NULL,
-                PRIMARY KEY(stream, year, roll)
+                year NUMBER(50) NOT NULL
             );
         '''
         self.sql.executescript(initscript)
@@ -21,6 +21,9 @@ class dboperations:
             VALUES (?, ?, ?, ?)
         ''',(name, roll, stream, year))
         self.sql.execute('COMMIT')
+
+    # def createFixtures(self):
+
 
 #Testing block for this class. Does not run if run through launcher.
 if __name__=='__main__':
