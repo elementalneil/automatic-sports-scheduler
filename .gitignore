@@ -1,5 +1,6 @@
 __pycache__/
 Temp/
 finances.sqlite 
+Participants.sqlite
 Fixtures.txt
-Documentation/
+Documentation/0
